@@ -1,0 +1,81 @@
+<!-- FILE: index.html
+PURPOSE: Licznik F1 (vanilla) — start lights, timer, laps, SC/VSC, persist
+RUNTIME: browser
+NOTES: iOS viewport fix, aria-live do komunikatów, dźwięk startu opcjonalny
+-->
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title>Licznik F1</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <h1>Licznik F1</h1>
+      <div class="flags">
+        <span class="flag sc" data-flag="sc" aria-label="Safety Car" title="Safety Car">SC</span>
+        <span class="flag vsc" data-flag="vsc" aria-label="Virtual Safety Car" title="Virtual Safety Car">VSC</span>
+      </div>
+    </header>
+
+    <section class="startlights" aria-label="Sekwencja startowa">
+      <div class="light" data-light="1"></div>
+      <div class="light" data-light="2"></div>
+      <div class="light" data-light="3"></div>
+      <div class="light" data-light="4"></div>
+      <div class="light" data-light="5"></div>
+    </section>
+
+    <section class="center">
+      <div class="timer" aria-live="polite">
+        <span data-field="session-time">00:00.000</span>
+        <small data-field="status">READY</small>
+      </div>
+
+      <div class="controls">
+        <button data-action="start">Start lights</button>
+        <button data-action="pause">Pauza</button>
+        <button data-action="resume">Wznów</button>
+        <button data-action="reset" class="danger">Reset</button>
+      </div>
+    </section>
+
+    <section class="drivers" aria-label="Kierowcy">
+      <div class="driver-list" data-role="drivers"></div>
+      <div class="add-remove">
+        <label>Liczba kierowców:
+          <select data-action="set-drivers">
+            <option>1</option><option selected>2</option><option>3</option><option>4</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="laps" aria-label="Okrążenia">
+      <table class="laps-table">
+        <thead>
+          <tr><th>P</th><th>Kierowca</th><th>Okra</th><th>Najlepsze</th><th>Ostatnie</th><th>Suma</th></tr>
+        </thead>
+        <tbody data-role="table-body"></tbody>
+      </table>
+    </section>
+
+    <footer class="footer">
+      <div class="kbd">
+        Enter: start • Space: pauza/wznów • 1–4: dodaj okrążenie • S: SC • V: VSC • R: reset • E: CSV
+      </div>
+      <button data-action="export">Eksport CSV</button>
+    </footer>
+  </div>
+
+  <audio preload="auto" data-audio="start">
+    <source src="data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABYAAAACAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" type="audio/wav">
+  </audio>
+
+  <script src="app.js"></script>
+</body>
+</html>
