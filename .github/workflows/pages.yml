@@ -1,0 +1,5 @@
+git add .
+git commit -m "F1 Counter: initial commit"
+# create repo on GitHub (replace USER and REPO)
+git remote add origin git@github.com:USER/YOUR_REPO.git
+git push -u origin mai
